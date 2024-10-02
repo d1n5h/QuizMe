@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QuizMe</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+            font-family: 'Poppins', sans-serif;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            padding-top: 2rem;
+            text-align: center;
+        }
+        h1 {
+            font-size: 2.5rem;
+            color: #333;
+            margin-bottom: 2rem;
+        }
+        .btn-quiz {
+            background: #6a11cb;
+            background: -webkit-linear-gradient(to right, #2575fc, #6a11cb);
+            background: linear-gradient(to right, #2575fc, #6a11cb);
+            color: #ffffff;
+            border: none;
+            border-radius: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            font-size: 1.25rem;
+            margin: 1rem;
+            transition: background 0.3s;
+            cursor: pointer;
+        }
+        .btn-quiz:hover {
+            background: #2575fc;
+        }
+        #quizContainer {
+            margin-top: 2rem;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            background-color: #ffffff;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>QuizMe</h1>
+
+        <!-- History Dropdown -->
+        <div class="dropdown">
+            <button class="btn-quiz dropdown-toggle" type="button" id="historyDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                History Quiz
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="historyDropdown">
+                <li><a class="dropdown-item" href="#" onclick="loadQuiz('indian-independence')">Indian Freedom Struggle</a></li>
+                <li><a class="dropdown-item" href="#" onclick="loadQuiz('world-war-1')">The Great War (World War I)</a></li>
+                <li><a class="dropdown-item" href="#" onclick="loadQuiz('world-war-2')">The Second World War</a></li>
+            </ul>
+        </div>
+
+        <!-- Geography Dropdown -->
+        <div class="dropdown">
+            <button class="btn-quiz dropdown-toggle" type="button" id="geographyDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                Geography Quiz
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="geographyDropdown">
+                <li><a class="dropdown-item" href="#" onclick="loadQuiz('indian-geography')">Land of India</a></li>
+                <li><a class="dropdown-item" href="#" onclick="loadQuiz('amazon-rainforest')">The Amazon Rainforest</a></li>
+                <li><a class="dropdown-item" href="#" onclick="loadQuiz('antarctica')">Frozen Continent (Antarctica)</a></li>
+            </ul>
+        </div>
+
+        <div id="quizContainer"></div>
+    </div>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

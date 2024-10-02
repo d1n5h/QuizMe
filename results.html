@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Results</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f4f4f9;
+            text-align: center;
+            padding-top: 50px;
+        }
+        #confetti {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9999;
+        }
+    </style>
+</head>
+<body>
+    <h1>Your Quiz Results</h1>
+    <h2 id="scoreDisplay"></h2>
+    <button id="logoutBtn" class="btn btn-primary mt-3">Logout</button>
+
+    <!-- Confetti Canvas -->
+    <canvas id="confetti"></canvas>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const score = localStorage.getItem('score');
+            const totalQuestions = localStorage.getItem('totalQuestions');
+            const scoreDisplay = document.getElementById('scoreDisplay');
+            scoreDisplay.textContent = `You scored ${score} out of ${totalQuestions}!`;
+
+            // Confetti effect for a perfect score
+            if (score == totalQuestions) {
+                const confetti = document.getElementById('confetti');
+                const confettiCtx = confetti.getContext('2d');
+                confetti.width = window.innerWidth;
+                confetti.height = window.innerHeight;
+
+                // Confetti effect
+                const confettiParticles = [];
+                const particleCount = 100;
+
+                function randomRange(min, max) {
+                    return Math.random() * (max - min) + min;
+                }
+
+                for (let i = 0; i < particleCount; i++) {
+                    confettiParticles.push({
+                        x: Math.random() * confetti.width,
+                        y: Math.random() * confetti.height - confetti.height,
+                        speedX: randomRange(-1, 1),
+                        speedY: randomRange(2, 5),
+                        size: randomRange(5, 10),
+                        color: `hsl(${Math.random() * 360}, 100%, 50%)`
+                    });
+                }
+
+                function drawConfetti() {
+                    confettiCtx.clearRect(0, 0, confetti.width, confetti.height);
+
+                    confettiParticles.forEach((particle, index) => {
+                        confettiCtx.fillStyle = particle.color;
+                        confettiCtx.fillRect(particle.x, particle.y, particle.size, particle.size);
+
+                        particle.x += particle.speedX;
+                        particle.y += particle.speedY;
+
+                        if (particle.y > confetti.height) {
+                            confettiParticles[index].y = -particle.size;
+                        }
+                    });
+
+                    requestAnimationFrame(drawConfetti);
+                }
+
+                drawConfetti();
+            }
+
+            // Logout button functionality
+            document.getElementById('logoutBtn').addEventListener('click', () => {
+                localStorage.removeItem('token');
+                localStorage.removeItem('score');
+                localStorage.removeItem('totalQuestions');
+                window.location.href = 'index.html';
+            });
+        });
+    </script>
+</body>
+</html>
