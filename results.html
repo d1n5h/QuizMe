@@ -39,7 +39,7 @@
             scoreDisplay.textContent = `You scored ${score} out of ${totalQuestions}!`;
 
             // Confetti effect for a perfect score
-            if (score == totalQuestions) {
+            if (score >=3) {
                 const confetti = document.getElementById('confetti');
                 const confettiCtx = confetti.getContext('2d');
                 confetti.width = window.innerWidth;
