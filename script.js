@@ -57,18 +57,100 @@ async function loadQuiz(topic) {
     // alert(questions.quiz.quiz);
     
     const quizContainer = document.getElementById('quizContainer');
-    quizContainer.innerHTML = '';
+quizContainer.innerHTML = '';
 
-    questions.forEach((q, index) => {
-        let questionHTML = `<p>${index + 1}. ${q.question}</p>`;
-        questionHTML += `
-            <input type="radio" name="question${index}" value="true"> True<br>
-            <input type="radio" name="question${index}" value="false"> False<br>
-        `;
-        quizContainer.innerHTML += questionHTML;
-    });
+// Applying fade-in animation and style for each question
+questions.forEach((q, index) => {
+    let questionHTML = `
+        <div class="question-container" style="animation: fadeInUp 0.8s ease ${index * 0.2}s forwards; opacity: 0;">
+            <p class="question-text">${index + 1}. ${q.question}</p>
+            <label class="radio-label">
+                <input type="radio" name="question${index}" value="true"> True
+            </label>
+            <br>
+            <label class="radio-label">
+                <input type="radio" name="question${index}" value="false"> False
+            </label>
+        </div>
+    `;
+    quizContainer.innerHTML += questionHTML;
+});
 
-    quizContainer.innerHTML += '<button class="btn btn-primary" onclick="submitQuiz()">Submit Quiz</button>';
+// Submit button with animations
+quizContainer.innerHTML += `
+    <button class="btn btn-primary submit-btn" style="animation: fadeInUp 1s ease forwards; opacity: 0;" onclick="submitQuiz()">
+        Submit Quiz
+    </button>
+`;
+
+// Trigger the fade-in effect
+setTimeout(() => {
+    quizContainer.style.opacity = 1;
+}, 100); 
+
+// Add custom styles dynamically
+const styleSheet = document.createElement('style');
+styleSheet.innerHTML = `
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    
+    /* Question Container Styles */
+    .question-container {
+        background: linear-gradient(135deg, #ffecd2, #fcb69f); /* Shiny gradient */
+        padding: 1rem;
+        border-radius: 0.75rem;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        margin-bottom: 1.5rem;
+        transition: transform 0.3s ease, background 0.3s ease;
+    }
+
+    /* Hover effect for questions */
+    .question-container:hover {
+        transform: scale(1.03);
+        background: linear-gradient(135deg, #fbc2eb, #a6c1ee);
+    }
+
+    /* Question Text Style */
+    .question-text {
+        font-family: 'Poppins', sans-serif;
+        font-size: 1.2rem;
+        color: #333;
+    }
+
+    /* Radio Buttons Styling */
+    .radio-label {
+        font-family: 'Poppins', sans-serif;
+        font-size: 1rem;
+        color: #555;
+        margin-right: 1rem;
+    }
+
+    /* Submit Button Hover Effect */
+    .submit-btn {
+        background: linear-gradient(45deg, #6a11cb, #2575fc);
+        border: none;
+        padding: 0.75rem 2rem;
+        border-radius: 0.5rem;
+        color: #fff;
+        font-family: 'Poppins', sans-serif;
+        cursor: pointer;
+        transition: transform 0.3s ease, background 0.3s ease;
+    }
+    .submit-btn:hover {
+        background: linear-gradient(45deg, #2575fc, #6a11cb);
+        transform: scale(1.05);
+    }
+`;
+document.head.appendChild(styleSheet);
+
 }
 
 
